@@ -12,6 +12,8 @@ var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 var customersProto = grpc.loadPackageDefinition(packageDefinition);
 const server = new grpc.Server();
+const { v4: uuidv4 } = require("uuid");
+
 
 const customers = [
   {
@@ -40,7 +42,42 @@ server.addService(customersProto.CustomerService.service, {
     } else {
       callback({
         code: grpc.status.NOT_FOUND,
-        details: "Not found"
+        details: `Not found id ${call.request.id}`
+      });
+    }
+  },
+  insert: (call, callback) => {
+    let customer = call.request
+    customer.id = uuidv4();
+    customers.push(customer);
+    callback(null, customer);
+  },
+  update: (call, callback) => {
+    let customer = customers.find((n) => n.id == call.request.id);
+    if(customer){
+      customer.name = call.request.name;
+      customer.age = call.request.age;
+      customer.address = call.request.address;
+      callback(null, customer);
+    } else {
+        callback({
+            code: grpc.status.NOT_FOUND,
+            details: `Not found id ${call.request.id}`
+        });
+    }
+  },
+  remove: (call, callback) => {
+    let existingCustomerIndex = customers.findIndex(
+      n => n.id == call.request.id
+    );
+
+    if (existingCustomerIndex != -1) {
+      customers.splice(existingCustomerIndex, 1);
+      callback(null, {});
+    } else {
+      callback({
+        code: grpc.status.NOT_FOUND,
+        details: `Not found id ${call.request.id}`
       });
     }
   }
