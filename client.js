@@ -15,7 +15,17 @@ const CustomerService = grpc.loadPackageDefinition(packageDefinition).CustomerSe
 const client = new CustomerService("localhost:30043", grpc.credentials.createInsecure());
 
 client.getAll(null, (err, data) => {
+  console.log("get all");
   if(!err){
     console.log(data);
   }
 });
+
+client.get({id: 'a68b823c-7ca6-44bc-b721-fb4d5312cafc'}, (err, data) => {
+  console.log("get by id");
+  if(!err) {
+    console.log(data);
+  } else {
+    console.log(err);
+  }
+})

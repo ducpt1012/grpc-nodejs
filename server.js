@@ -31,6 +31,18 @@ const customers = [
 server.addService(customersProto.CustomerService.service, {
   getAll: (_, callback) => {
     callback(null, { customers });
+  },
+  get: (call, callback) => {
+    let customer = customers.find((n) => n.id == call.request.id);
+
+    if(customer) {
+      callback(null, customer);
+    } else {
+      callback({
+        code: grpc.status.NOT_FOUND,
+        details: "Not found"
+      });
+    }
   }
 })
 
