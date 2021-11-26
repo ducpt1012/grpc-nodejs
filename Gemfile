@@ -6,4 +6,4 @@ git_source(:github) do |repo_name|
 end
 
 gem 'grpc', github: 'grpc/grpc', submodules: true
-gem 'grpc-tools'
+gem 'twirp'

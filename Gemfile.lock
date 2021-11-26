@@ -10,17 +10,40 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    faraday (1.8.0)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
     google-protobuf (3.19.1-x86_64-darwin)
     googleapis-common-protos-types (1.3.0)
       google-protobuf (~> 3.14)
-    grpc-tools (1.41.1)
+    multipart-post (2.1.1)
+    ruby2_keywords (0.0.5)
+    twirp (1.9.0)
+      faraday (< 2)
+      google-protobuf (~> 3.0, >= 3.7.0)
 
 PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
   grpc!
-  grpc-tools
+  twirp
 
 BUNDLED WITH
    2.2.17
